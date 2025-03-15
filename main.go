@@ -25,7 +25,6 @@ type ToDo struct {
 }
 
 func main() {
-	// Code
 
 	var err error = godotenv.Load(".env")
 
