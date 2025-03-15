@@ -1,0 +1,12 @@
+# .air.toml
+[build]
+  cmd = "go build -o main ."
+  bin = "main"
+  include_ext = ["go", "tpl", "html"]
+  exclude_dir = ["assets", "tmp"]
+
+[log]
+  time = true
+
+[run]
+  cmd = "./main"
