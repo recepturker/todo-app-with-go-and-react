@@ -30,6 +30,7 @@ type ToDo struct {
 }
 
 var PORT string = "8001"
+var ENV string = "development"
 var client *mongo.Client
 var collection *mongo.Collection
 var app *fiber.App
@@ -83,7 +84,20 @@ func setConfigurations() {
 	collection = client.Database("todoapp").Collection("todos")
 
 	PORT = os.Getenv("PORT")
+	ENV = os.Getenv("ENV")
+
 	app = fiber.New()
+
+	if ENV == "development" {
+		app.Static("/", "./client/dist")
+	}
+
+	// app.Use(cors.New(cors.Config{
+	// 	// AllowOrigins: "*", // Tüm kaynaklara izin verir (Güvenlik açısından sadece gerekli domainleri ekleyin)
+	// 	AllowOrigins: "http://localhost:5173/", // Tüm kaynaklara izin verir (Güvenlik açısından sadece gerekli domainleri ekleyin)
+	// 	AllowHeaders: "Origin, Content-Type, Accept",
+	// 	AllowMethods: "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+	// }))
 }
 
 func getTodos(c *fiber.Ctx) error {
